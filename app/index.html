@@ -1,0 +1,179 @@
+<!doctype html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Pantry Manager</title>
+      <meta name="description" content="Manage your pantry inventory">
+      <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+      <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+  </head>
+  <body>
+<!--[if lte IE 8]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <!-- Add your site or application content here
+  <div class="header">
+    <div class="navbar navbar-default" role="navigation">
+      <!--<div class="container">
+        <div class="navbar-header">
+
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+          <a class="navbar-brand" href="#/">pantry</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#/">Home</a></li>
+            <li><a ng-href="#/about">About</a></li>
+            <li><a ng-href="#/">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!--<div class="container">
+  <!--<div ng-view=""></div>-->
+  <div class="container-fluid" ng-app="pantryApp">
+    <div class="row">
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+      <form id="foodEntry" ng-controller="inputCtrl">
+        <label class="row"> Food:
+          <input type="text" placeholder="e.g.: 3 apples" ng-model="entered"
+                                         ng-keydown="pressedKey($event)"/>
+        </label>
+        <span class="row">Add food |   Update amount   | Remove food <button class="btn btn-info">Clear</button>
+          <pre> # food | # (to add to) food | 0 food</pre>
+        </span>
+      </form>
+
+      <div class="row">
+        <div class="col-xs-12 " ng-controller="pantryCtrl">
+          <span class="col-xs-4 col-xs-offset-4"><h3>Pantry</h3></span>
+            <ul class="row list-unstyled">
+              <li ng-repeat="item in pantry track by $index"><span class="col-xs-6 col-xs-offset-1 text-left">{{item.name}}</span><span
+              class="col-xs-1 text-right">{{item.servings}}</span></li>
+            </ul>
+            </div>
+          </div>
+        </div>
+
+<!--
+      <div class="col-xs-12 col-sm-5 col-md-5" id="cooking" ng-controller="consumptionCtrl">
+
+        <div class="row">
+           <span class="col-xs-3"><strong>Cooking: </strong></span>
+          <select class="col-xs-6" ng-model="selectedRecipe" ng-options="item.name for item in recipes"/></select>
+            <span class="col-xs-3">
+                <button class="btn btn-info" ng-click="cookStuff()">Cook</button>
+                <button class="btn btn-info" ng-click="toggleCreate()">Add Recipe</button>
+                <button class="btn btn-info" ng-click="toggleEdit()">Edit Recipe</button>
+            </span>
+        </div>
+        <div id="newRecipeMaker" ng-show="createRecipeToggle">
+          <label>Recipe Name: <input type="text" id="recipeInput" name="recipeInput" ng-model="recipeInput"/></label>
+          <span class="row"><span class="col-xs-6">Ingredient</span><span class="col-xs-2 text-right">Amount</span></span>
+            <span class="input-group row">
+                <input id="ingredientInput" name="ingredientInput" class="col-xs-8" type="text"
+                       ng-model="ingredientInput"/>
+                <input id="amountInput" name="amountInput" class="col-xs-2" type="text"
+                       ng-model="amountInput"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-info adderBtn" ng-click="createIngredient()">+</button>
+                </span>
+            </span>
+
+          <ul class="text-left list-unstyled" ng-if="ingredientList.length">
+            <li class="row text-center" ng-repeat="ingr in ingredientList track by $index">
+              <span class="col-xs-5">{{ingr.name}}</span><span class="col-xs-2">{{ingr.servings}}</span>
+            </li>
+          </ul>
+          <button class="btn btn-info finishRecipeBtn" ng-click="saveRecipe()"
+                  ng-if="ingredientList.length && recipeInput.length">Save Recipe
+          </button>
+        </div>
+        <div id="recipeEditor" ng-show="editRecipeToggle">
+          <label>Recipe Name: <input type="text" id="editRecipeInput" name="editRecipeInput"
+                                     ng-model="selectedRecipe.name"/></label>
+          <span class="row"><span class="col-xs-6">Ingredient</span><span class="col-xs-2 text-right">Amount</span></span>
+            <span class="input-group row">
+                <input name="ingredientInput" class="col-xs-8" type="text" ng-model="ingredientInput"/>
+                <input name="amountInput" class="col-xs-2" type="text" ng-model="amountInput"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-info adderBtn" ng-click="createIngredient()">+</button>
+                </span>
+            </span>
+
+          <ul class="text-left list-unstyled" ng-if="selectedRecipe.ingredients.length">
+            <li class="row text-center" ng-repeat="ingr in selectedRecipe.ingredients track by $index">
+              <input type="text" class="col-xs-5" ng-model="ingr.name"></span><input type="text" class="col-xs-2"
+                                                                                     ng-model="ingr.amount"/>
+            </li>
+          </ul>
+          <button class="btn btn-info updateRecipeBtn" ng-click="saveEditedRecipe()"
+                  ng-if="selectedRecipe.ingredients.length && selectedRecipe.name.length">Save Recipe
+          </button>
+        </div>-->
+      </div>
+    </div>
+  </div>
+
+
+<!--<div class="footer">
+  <div class="container">
+    <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+  </div>
+</div>-->
+
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<script>
+  !function (A, n, g, u, l, a, r) {
+    A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
+        (A[l].q = A[l].q || []).push(arguments)
+      }, A[l].l = +new Date, a = n.createElement(g),
+      r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+  }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-XXXXX-X');
+  ga('send', 'pageview');
+</script>
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/pantry.js"></script>
+<script src="scripts/controllers/input.js"></script>
+<script src="scripts/controllers/consumption.js"></script>
+<script src="scripts/services/inventory.js"></script>
+<!-- endbuild -->
+</body>
+</html>
