@@ -20,18 +20,17 @@ describe('Service: inventory', function () {
     expect(inventory.Recipes().length).toBe(2);
   });
 
-  it('should have a function that splits input into amount and food', function(){
-    var entered = "3 apples";
-    inventory.processEntry(entered);
+  it('should have functions that split input into amount and food', function(){
+
+    inventory.processAmount("3 apples");
+    inventory.processFood("3 apples");
     expect(inventory.enteredFood()).toBe('apples');
     expect(inventory.enteredAmount()).toBe('3');
   });
 
   it('should have a function that adds items to the inventory', function (){
-    var i = [];
-    inventory.food = "oranges";
-    inventory.numFood = "7";
-    inventory.addNewFood();
+    var i;
+    inventory.addNewFood("7 oranges");
     i = inventory.Inventory();
    // console.log(JSON.stringify(i));
     expect(i.length).toBe(1);
@@ -41,53 +40,35 @@ describe('Service: inventory', function () {
   });
 
   it('should update food already in pantry based on entry', function (){
-    var i=[];
-    inventory.food = "oranges";
-    inventory.numFood = "7";
-    inventory.addNewFood();
-    inventory.food = "apples";
-    inventory.numFood = "4";
-    inventory.addNewFood();
-    inventory.food = "oranges";
-    inventory.numFood = "3";
-    inventory.addNewFood();
+    var i;
+    inventory.addNewFood("7 oranges");
+    inventory.addNewFood("4 apples");
+    inventory.addNewFood("3 oranges");
     i = inventory.Inventory();
     expect(i.length).toBe(2);
     expect(i[0].servings).toBe(10);
   });
 
-  it('should remove items from pantry when 0 is typed asthe amount to add', function(){
-    var i = [];
-    inventory.food = "oranges";
-    inventory.numFood = "7";
-    inventory.addNewFood();
-    inventory.food = "apples";
-    inventory.numFood = "4";
-    inventory.addNewFood();
-    inventory.food = "oranges";
-    inventory.numFood = "3";
-    inventory.addNewFood();
+  it('should remove items from pantry when 0 is typed as the amount to add', function(){
+    var i;
+
+    inventory.addNewFood("7 oranges");
+    inventory.addNewFood("4 apples");
+    inventory.addNewFood("3 oranges");
     i = inventory.Inventory();
     expect(i.length).toBe(2);
     expect(i[0].servings).toBe(10);
-    inventory.food = "apples";
-    inventory.numFood = "0";
-    inventory.addNewFood();
+    inventory.addNewFood("0 apples");
     i = inventory.Inventory();
     expect(i.length).toBe(1);
   });
 
   it('should have a function to empty the inventory', function(){
-    var i = [];
-    inventory.food = "oranges";
-    inventory.numFood = "7";
-    inventory.addNewFood();
-    inventory.food = "apples";
-    inventory.numFood = "4";
-    inventory.addNewFood();
-    inventory.food = "oranges";
-    inventory.numFood = "3";
-    inventory.addNewFood();
+    var i;
+
+    inventory.addNewFood("7 oranges");
+    inventory.addNewFood("4 apples");
+    inventory.addNewFood("3 oranges");
     i = inventory.Inventory();
     expect(i.length).toBe(2);
     inventory.clearPantry();
@@ -96,38 +77,28 @@ describe('Service: inventory', function () {
   });
 
   it('should remove items from the list if the sum of the update amount and the current amount is less than or equal to zero', function() {
-    var i = [];
-    inventory.food = "oranges";
-    inventory.numFood = "7";
-    inventory.addNewFood();
+    var i;
+    inventory.addNewFood("7 oranges");
     i = inventory.Inventory();
     expect(i.length).toBe(1);
-    inventory.food = "oranges";
-    inventory.numFood = "-8";
-    inventory.addNewFood();
+    inventory.addNewFood("-8 oranges");
     i = inventory.Inventory();
     expect(i.length).toBe(0);
 
   });
 
   it('should not perform any actions upon the list if handed invalid input', function(){
-    var i = [];
-    inventory.food = "oranges";
-    inventory.numFood = "7";
-    inventory.addNewFood();
+    var i;
+    inventory.addNewFood("7 oranges");
     i = inventory.Inventory();
     expect(i.length).toBe(1);
-   // console.log(JSON.stringify(i));
-    inventory.food = "oranges";
-    inventory.numFood = "A";
-    inventory.addNewFood();
+   //console.log(JSON.stringify(i));
+    inventory.addNewFood("A oranges");
     i = inventory.Inventory();
    // console.log(JSON.stringify(i));
     expect(i[0].servings).toBe('7');
 
-    inventory.numFood = "4apples";
-    inventory.food = '';
-    inventory.addNewFood();
+    inventory.addNewFood("4apples");
     i = inventory.Inventory();
     // console.log(JSON.stringify(i));
     expect(i.length).toBe(1);
@@ -137,8 +108,8 @@ describe('Service: inventory', function () {
     inventory.food = "oranges";
     inventory.numFood = "7";
     inventory.finishProcess();
-    expect(inventory.food).toBe('');
-    expect(inventory.numFood).toBe('');
+    expect(inventory.enteredFood()).toBe('');
+    expect(inventory.enteredAmount()).toBe('');
   });
 /*
   it('should be able to create a new recipe and add it to those stored when given ingredients and a recipe name', function (){

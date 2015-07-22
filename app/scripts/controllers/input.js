@@ -11,14 +11,18 @@ angular.module('pantryApp')
   .controller('inputCtrl', function($scope, inventory){
     $scope.entered = '';
     $scope.pressedKey = function(e){
-      if(e.which== 13){
+      if(e.which=== 13){
         $scope.handleEntry();
       }
     };
     $scope.handleEntry = function(){
-      inventory.processEntry($scope.entered);
-      $scope.entered = '';
-      inventory.addNewFood();
+      inventory.addNewFood($scope.entered);
       console.log(JSON.stringify(inventory.Inventory()));
+      $scope.entered = '';
+    };
+
+    $scope.clearInventory = function(){
+      inventory.clearPantry();
+
     };
   });

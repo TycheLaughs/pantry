@@ -78,78 +78,99 @@ angular.module('pantryApp')
       enteredAmount: function(){
         return numFood;
       },
-      processEntry: function(entered){
+      processAmount: function(entered){
         var i = 0;
+        numFood = '';
         if(entered.trim() !== ''){
           for(i; i < entered.length && entered[i] !== ' '; i++){
             numFood+= entered[i];
           }
           if(!Number(numFood) && numFood !=='0'){
             numFood = '';
-            return 'NO';
+            return '';
           }
+
+        }
+      },
+      processFood: function(entered){
+        var i = 0;
+        food = '';
+        if(entered.trim() !== ''){
+          for(i; i < entered.length && entered[i] !== ' '; i++){}
           for(i; i < entered.length; i++){
             food += entered[i].toLowerCase();
           }
           food = food.trim();
           //console.log(food+' '+ numFood);
         }
+        return food;
       },
-      addNewFood: function(){
+
+      addNewFood: function(entered){
         var i = 0;
         var found = -1;
-        //console.log(this.food);
-        //console.log(this.numFood);
-        if(Number(this.numFood)|| this.numFood === '0') {
-          for (i; i < inv.length; i++) {
-            if (inv[i].name === this.food) {
-              found = i;
-            }
-          }
-          if (found !== -1) {
-            this.updateFood();
-          }
-          else {
-            var foodProto = {
-              "name": "foodName",
-              "servings": "0"
-            };
 
-            foodProto.name = this.food;
-            foodProto.servings = this.numFood;
-            inv.push(foodProto);
-            this.finishProcess();
+        this.numFood = this.processAmount(entered);
+        this.food = this.processFood(entered);
+
+        //console.log(this.enteredFood());
+        //console.log(this.enteredAmount());
+        if(this.enteredAmount() !== '' && this.enteredFood() !== ''){
+          if(Number(this.enteredAmount())|| this.enteredAmount() === '0') {
+            for (i; i < inv.length; i++) {
+              if (inv[i].name === this.enteredFood()) {
+                found = i;
+              }
+            }
+            if (found !== -1) {
+              this.updateFood();
+            }
+            else {
+              var foodProto = {
+                "name": "foodName",
+                "servings": "0"
+              };
+
+              foodProto.name = this.enteredFood();
+              foodProto.servings = this.enteredAmount();
+              inv.push(foodProto);
+              this.finishProcess();
+            }
           }
         }
       },
       updateFood: function(){
-        if(Number(this.numFood) !== 0){
+        if(Number(this.enteredAmount()) !== 0){
 
           var i;
           var index = 0;
           var amount = 0;
           for(i=0; i < inv.length; i++)
           {
-            if(inv[i].name === this.food){
+            if(inv[i].name === this.enteredFood()){
               index = i;
             }
           }
           amount += Number(inv[index].servings);
-          amount += Number(this.numFood);
+          amount += Number(this.enteredAmount());
          if(amount > 0) {
            inv[index].servings = amount;
            this.finishProcess();
          }
-          else this.removeFood();
+          else {
+           this.removeFood();
+         }
         }
-        else this.removeFood();
+        else {
+          this.removeFood();
+        }
       },
       removeFood: function(){
         var i = 0;
         var index = 0;
         for(i; i < inv.length; i++)
         {
-          if(inv[i].name === this.food.trim()){
+          if(inv[i].name === this.enteredFood()){
             index = i;
           }
         }
@@ -157,13 +178,16 @@ angular.module('pantryApp')
         this.finishProcess();
       },
       finishProcess: function(){
-        this.food = '';
-        this.numFood = '';
+        //console.log(JSON.stringify(inv));
+        food = '';
+        numFood = '';
       },
       clearPantry: function(){
+        //console.log(JSON.stringify(inv));
         var i = inv.length;
         for(i; i > 0; i--){
           inv.pop();
+          //console.log(JSON.stringify(inv));
         }
         this.finishProcess();
 
