@@ -89,7 +89,6 @@ angular.module('pantryApp')
             numFood = '';
             return '';
           }
-
         }
       },
       processFood: function(entered){
@@ -109,21 +108,22 @@ angular.module('pantryApp')
       addNewFood: function(entered){
         var i = 0;
         var found = -1;
-
-        this.numFood = this.processAmount(entered);
-        this.food = this.processFood(entered);
-
+        var am, foo;
+        this.processAmount(entered);
+        this.processFood(entered);
+        am = this.enteredAmount();
+        foo = this.enteredFood();
         //console.log(this.enteredFood());
         //console.log(this.enteredAmount());
-        if(this.enteredAmount() !== '' && this.enteredFood() !== ''){
-          if(Number(this.enteredAmount())|| this.enteredAmount() === '0') {
+        if(am !== '' && foo !== ''){
+          if(Number(am)|| am === '0') {
             for (i; i < inv.length; i++) {
-              if (inv[i].name === this.enteredFood()) {
+              if (inv[i].name === foo) {
                 found = i;
               }
             }
             if (found !== -1) {
-              this.updateFood();
+              this.updateFood(am, foo);
             }
             else {
               var foodProto = {
@@ -131,46 +131,45 @@ angular.module('pantryApp')
                 "servings": "0"
               };
 
-              foodProto.name = this.enteredFood();
-              foodProto.servings = this.enteredAmount();
+              foodProto.name = foo;
+              foodProto.servings = am;
               inv.push(foodProto);
               this.finishProcess();
             }
           }
         }
       },
-      updateFood: function(){
-        if(Number(this.enteredAmount()) !== 0){
-
+      updateFood: function(a, f){
+        if(Number(a) !== 0){
           var i;
           var index = 0;
           var amount = 0;
           for(i=0; i < inv.length; i++)
           {
-            if(inv[i].name === this.enteredFood()){
+            if(inv[i].name === f){
               index = i;
             }
           }
           amount += Number(inv[index].servings);
-          amount += Number(this.enteredAmount());
+          amount += Number(a);
          if(amount > 0) {
            inv[index].servings = amount;
            this.finishProcess();
          }
           else {
-           this.removeFood();
+           this.removeFood(f);
          }
         }
         else {
-          this.removeFood();
+          this.removeFood(f);
         }
       },
-      removeFood: function(){
+      removeFood: function(foo){
         var i = 0;
         var index = 0;
         for(i; i < inv.length; i++)
         {
-          if(inv[i].name === this.enteredFood()){
+          if(inv[i].name === foo){
             index = i;
           }
         }
@@ -192,64 +191,6 @@ angular.module('pantryApp')
         this.finishProcess();
 
       }
-      /*,
-      consumeFood: function(recipeObj){
-        var i, j;
-        var foundIngr = false;
-        var message = [];
-        //does the pantry have all the ingredients?
-        if(inv.length >= recipeObj.ingredients.length ){
-          for(i= 0; i < recipeObj.ingredients.length; i++){
-            foundIngr = false;
-            for(j= 0; j< inv.length; j++){
-              if(recipeObj.ingredients[i].name === inv[j].name){
-                foundIngr = true;
-              }
-            } if(!foundIngr){
-              message.push('You need '+ inv[j].servings + ' '+ inv[j].name + ' to make this recipe.');
-            }
-          }
-          //if it does
-          if(message === []){
-            for(i=0; i < recipeObj.ingredients.length; i++){
-              for(j = 0; j< inv.length; j++){
-                if(recipeObj.ingredients[i].name === inv[j].name){
-                  if(inv[j].servings < recipeObj.ingredients[i].amount){ //is there enough of each ingredient?
-                    message.push('You need '+ (-(inv[j].servings - recipeObj.ingredients[i].amount)) + ' more '+ ingredients[j].name + ' to make this recipe.');
-                  }
-                }
-              }
-            }
-            if(message === []){//if we've still hit no errors
-              for(i=0; i < recipeObj.ingredients.length; i++){
-                for(j = 0; j< inv.length; j++) {
-                  //actually perform the updates
-                  if (inv[j].name === recipeObj.ingredients[i].name) {
 
-                    if (inv[j].servings >= recipeObj.ingredients[i].amount) {
-                      var amt = 0;
-                      amt = Number(inv[j].servings);
-                      amt -= Number(recipeObj.ingredients[i].amount);
-                      inv[j].servings = amt;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        return message;
-      },
-      addNewRecipe: function(list, name){
-        var recipeProto={
-          "name": name,
-          "ingredients": list
-        };
-        recipes.push(recipeProto);
-      },
-      updateRecipe: function(index, recipeObj){
-        recipes[index]= recipeObj;
-      }
-*/
     };
   });

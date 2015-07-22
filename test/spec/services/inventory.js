@@ -92,15 +92,11 @@ describe('Service: inventory', function () {
     inventory.addNewFood("7 oranges");
     i = inventory.Inventory();
     expect(i.length).toBe(1);
-   //console.log(JSON.stringify(i));
     inventory.addNewFood("A oranges");
     i = inventory.Inventory();
-   // console.log(JSON.stringify(i));
     expect(i[0].servings).toBe('7');
-
     inventory.addNewFood("4apples");
     i = inventory.Inventory();
-    // console.log(JSON.stringify(i));
     expect(i.length).toBe(1);
   });
 
@@ -111,14 +107,5 @@ describe('Service: inventory', function () {
     expect(inventory.enteredFood()).toBe('');
     expect(inventory.enteredAmount()).toBe('');
   });
-/*
-  it('should be able to create a new recipe and add it to those stored when given ingredients and a recipe name', function (){
-    inventory.recipes = [];
-    var name = "Too many apples";
-    var ingredients = [{"name":"apples", "servings":"84"}];
-    inventory.addNewRecipe(ingredients, name);
-    expect(inventory.recipes.length).toBe(1);
-
-  });*/
 
 });
