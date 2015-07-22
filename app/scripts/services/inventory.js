@@ -10,65 +10,10 @@
 angular.module('pantryApp')
   .service('inventory', function(){
     var inv = [];
-    var recipes = [
-      {"name":"Pasta with red sauce",
-        "ingredients":[
-          {
-            "name":"pasta",
-            "amount":"7"
-          },
-          {
-            "name":"tomatoes",
-            "amount":"10"
-          },
-          {
-            "name":"garlic",
-            "amount":"3"
-          },
-          {
-            "name":"onions",
-            "amount":"1"
-          }
-        ]},
-      {"name":"Fruit salad",
-        "ingredients":[
-          {
-            "name":"oranges",
-            "amount":"1"
-          },
-          {
-            "name":"apples",
-            "amount":"2"
-          },
-          {
-            "name":"peaches",
-            "amount":"1"
-          },
-          {
-            "name":"kiwi",
-            "amount":"2"
-          },
-          {
-            "name":"grapes",
-            "amount":"1"
-          },
-          {
-            "name":"cherries",
-            "amount":"2"
-          },
-          {
-            "name":"bananas",
-            "amount":"1"
-          }
-        ]}
-    ];
     var food = '';
     var numFood = '';
 
     return{
-      Recipes: function(){
-        return recipes;
-      },
       Inventory: function(){
         return inv;
       },
@@ -91,6 +36,7 @@ angular.module('pantryApp')
           }
         }
       },
+
       processFood: function(entered){
         var i = 0;
         food = '';
@@ -100,37 +46,38 @@ angular.module('pantryApp')
             food += entered[i].toLowerCase();
           }
           food = food.trim();
-          //console.log(food+' '+ numFood);
         }
         return food;
       },
 
-      addNewFood: function(entered){
-        var i = 0;
+      findFood: function(foodName){
         var found = -1;
+        var i = 0;
+        for (i; i < inv.length; i++) {
+          if (inv[i].name === foodName) {
+            found = i;
+          }
+        }
+        return found;
+      },
+
+      addNewFood: function(entered){
         var am, foo;
+        var foodProto = {
+          "name": "foodName",
+          "servings": "0"
+        };
         this.processAmount(entered);
         this.processFood(entered);
         am = this.enteredAmount();
         foo = this.enteredFood();
-        //console.log(this.enteredFood());
-        //console.log(this.enteredAmount());
         if(am !== '' && foo !== ''){
           if(Number(am)|| am === '0') {
-            for (i; i < inv.length; i++) {
-              if (inv[i].name === foo) {
-                found = i;
-              }
-            }
+           var found = this.findFood(foo);
             if (found !== -1) {
               this.updateFood(am, foo);
             }
             else {
-              var foodProto = {
-                "name": "foodName",
-                "servings": "0"
-              };
-
               foodProto.name = foo;
               foodProto.servings = am;
               inv.push(foodProto);
@@ -141,18 +88,11 @@ angular.module('pantryApp')
       },
       updateFood: function(a, f){
         if(Number(a) !== 0){
-          var i;
-          var index = 0;
           var amount = 0;
-          for(i=0; i < inv.length; i++)
-          {
-            if(inv[i].name === f){
-              index = i;
-            }
-          }
+          var index = this.findFood(f);
           amount += Number(inv[index].servings);
           amount += Number(a);
-         if(amount > 0) {
+          if(amount > 0) {
            inv[index].servings = amount;
            this.finishProcess();
          }
@@ -165,31 +105,20 @@ angular.module('pantryApp')
         }
       },
       removeFood: function(foo){
-        var i = 0;
-        var index = 0;
-        for(i; i < inv.length; i++)
-        {
-          if(inv[i].name === foo){
-            index = i;
-          }
-        }
+        var index = this.findFood(foo);
         inv.splice(index, 1);
         this.finishProcess();
       },
       finishProcess: function(){
-        //console.log(JSON.stringify(inv));
         food = '';
         numFood = '';
       },
       clearPantry: function(){
-        //console.log(JSON.stringify(inv));
         var i = inv.length;
         for(i; i > 0; i--){
           inv.pop();
-          //console.log(JSON.stringify(inv));
         }
         this.finishProcess();
-
       }
 
     };

@@ -20,7 +20,6 @@ describe('Controller: pantryCtrl', function () {
 
   it('should get the pantry inventory and attach it to the scope', function () {
     scope.pantry = inventory.Inventory();
-    //console.log(JSON.stringify(scope.pantry));
     expect(scope.pantry.length).toBe(0);
   });
 });

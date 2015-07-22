@@ -2,15 +2,12 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app/scripts/app.js" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/scripts/controllers/consumption.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/controllers/input.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/controllers/pantry.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/directives/pantryoutput.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/scripts/services/inventory.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/styles/main.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/views/main.html" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/views/output.html" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/test/spec/controllers/consumption.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/test/spec/controllers/input.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/test/spec/controllers/pantry.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/test/spec/directives/pantryoutput.js" charset="UTF-8" />

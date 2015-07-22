@@ -19,7 +19,6 @@ angular.module('pantryApp')
     };
     $scope.handleEntry = function(){
       inventory.addNewFood($scope.entered);
-      console.log(JSON.stringify(inventory.Inventory()));
       $scope.entered = '';
     };
 

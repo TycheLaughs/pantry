@@ -16,9 +16,6 @@ describe('Service: inventory', function () {
 
   });
 
-  it('should have two default recipe objects', function(){
-    expect(inventory.Recipes().length).toBe(2);
-  });
 
   it('should have functions that split input into amount and food', function(){
 
@@ -32,7 +29,6 @@ describe('Service: inventory', function () {
     var i;
     inventory.addNewFood("7 oranges");
     i = inventory.Inventory();
-   // console.log(JSON.stringify(i));
     expect(i.length).toBe(1);
     expect(i[0].name).toBe('oranges');
     expect(i[0].servings).toBe('7');
@@ -106,6 +102,16 @@ describe('Service: inventory', function () {
     inventory.finishProcess();
     expect(inventory.enteredFood()).toBe('');
     expect(inventory.enteredAmount()).toBe('');
+  });
+
+  it('should have a helper function that returns the index of a food if found in the pantry and -1 if not', function(){
+    var i;
+    inventory.addNewFood("7 oranges");
+    i = inventory.Inventory();
+    expect(i.length).toBe(1);
+    expect(inventory.findFood("oranges")).toBe(0);
+    expect(inventory.findFood("apples")).toBe(-1);
+
   });
 
 });
