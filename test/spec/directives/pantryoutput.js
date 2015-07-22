@@ -15,7 +15,7 @@ describe('Directive: pantryOutput', function () {
   it('should render on the page', inject(function ($compile) {
     element = angular.element('<pantry-output></pantry-output>');
     element = $compile(element)(scope);
-    expect(element.text().trim()).toBe('Pantry');
+    expect(element.text().trim()).toBe('Pantry            Clear');
   }));
 
   it('should display content according to the referenced model', function($compile){
@@ -26,4 +26,6 @@ describe('Directive: pantryOutput', function () {
     expect(element).toBe('grapefruits8');
 
   });
+
+
 });

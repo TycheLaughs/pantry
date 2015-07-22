@@ -1,0 +1,16 @@
+ <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+    <form class="foodEntry"><span class="text-right"><a href="#/add" class="btn btn-info">Add Items</a></span>
+      <label class="row"> Update amount. Add:
+        <input type="text" placeholder="2 apples" ng-model="updateMe" ng-keydown="pressedKeyForUpdate($event)"/>
+        (0 removes food)
+      </label>
+      <label class="row"> Remove a food:
+        <input type="text" placeholder="apples" ng-model="removeMe" ng-keydown="pressedKeyForRemoval($event)"/>
+      </label>
+    </form>
+    <!--<span class="row">
+      Add food |   Update amount   | Remove food -->
+
+    <!--<pre> # food | # (to add to) food | 0 food</pre> </span>-->
+  </div>
+

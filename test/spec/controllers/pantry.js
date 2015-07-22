@@ -22,4 +22,12 @@ describe('Controller: pantryCtrl', function () {
     scope.pantry = inventory.Inventory();
     expect(scope.pantry.length).toBe(0);
   });
+  it('should have a function to clear the pantry', function(){
+    inventory.addNewFood("8 grapefruits");
+    inventory.addNewFood("7 apples");
+    expect(inventory.Inventory().length).toBe(2);
+    scope.clearInventory();
+    expect(inventory.Inventory().length).toBe(0);
+
+  });
 });

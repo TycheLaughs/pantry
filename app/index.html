@@ -21,7 +21,9 @@
       your browser</a> to improve your experience.</p>
     <![endif]-->
       <div class="container-fluid">
+        <h2 class="row text-center">Pantry Manager</h2>
         <div ng-view></div>
+        <pantry-output></pantry-output>
       </div>
 
     <!-- build:js(.) scripts/vendor.js -->
@@ -39,9 +41,10 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/pantry.js"></script>
-    <script src="scripts/controllers/input.js"></script>
+    <script src="scripts/controllers/add.js"></script>
     <script src="scripts/services/inventory.js"></script>
     <script src="scripts/directives/pantryoutput.js"></script>
+    <script src="scripts/controllers/update.js"></script>
     <!-- endbuild -->
     </body>
   </html>

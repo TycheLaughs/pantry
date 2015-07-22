@@ -10,4 +10,8 @@
 angular.module('pantryApp')
   .controller('pantryCtrl', function($scope, inventory){
     $scope.pantry = inventory.Inventory();
+
+    $scope.clearInventory = function(){
+      inventory.clearPantry();
+    };
   });
