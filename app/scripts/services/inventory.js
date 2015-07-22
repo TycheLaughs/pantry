@@ -88,17 +88,16 @@ angular.module('pantryApp')
       },
       updateFood: function(a, f){
         if(Number(a) !== 0){
-          var amount = 0;
           var index = this.findFood(f);
-          amount += Number(inv[index].servings);
+          var amount = Number(inv[index].servings);
           amount += Number(a);
           if(amount > 0) {
            inv[index].servings = amount;
            this.finishProcess();
-         }
+          }
           else {
            this.removeFood(f);
-         }
+          }
         }
         else {
           this.removeFood(f);
