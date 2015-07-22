@@ -12,12 +12,9 @@ angular.module('pantryApp')
       $scope.updateMe='';
       $scope.removeMe = '';
 
-      $scope.clearInventory = function(){
-        inventory.clearPantry();
-      };
       $scope.pressedKeyForUpdate = function(e){
 
-        if(e.which=== 13){
+        if(e.which === 13){
           $scope.handleUpdate();
         }
       };
