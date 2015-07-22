@@ -22,15 +22,18 @@ angular.module('pantryApp')
         }
       };
       $scope.handleUpdate = function(){
-
+        //calling addNewFood to catch user error rather than
+        //updateFood. If the food they want to update isn't in
+        //list, it adds it. Otherwise, it updates the amount
+        //or removes based on the entered amount
         inventory.addNewFood($scope.updateMe);
         $scope.updateMe = '';
       };
+
       $scope.pressedKeyForRemoval = function(e){
         if(e.which === 13){
           $scope.handleRemove();
         }
-
       };
       $scope.handleRemove = function(){
         inventory.removeFood($scope.removeMe);

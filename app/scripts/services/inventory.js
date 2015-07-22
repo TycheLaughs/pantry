@@ -79,7 +79,7 @@ angular.module('pantryApp')
           if(Number(am)|| am === '0') {
            var found = this.findFood(foo);
             if (found !== -1) {
-              this.updateFood(am, foo);
+              this.updateFood(entered);
             }
             else {
               foodProto.name = foo;
@@ -91,7 +91,12 @@ angular.module('pantryApp')
         this.finishProcess();
       },
 
-      updateFood: function(a, f){
+      updateFood: function(entry){
+        var a, f;
+        this.processFood(entry);
+        this.processAmount(entry);
+        a = this.enteredAmount();
+        f = this.enteredFood();
         if(Number(a) !== 0){
           var index = this.findFood(f);
           var amount = Number(inv[index].servings);
@@ -111,7 +116,9 @@ angular.module('pantryApp')
 
       removeFood: function(foo){
         var index = this.findFood(foo);
-        inv.splice(index, 1);
+        if(index !== -1) {
+          inv.splice(index, 1);
+        }
         this.finishProcess();
       },
 

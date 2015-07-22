@@ -47,7 +47,6 @@ describe('Service: inventory', function () {
 
   it('should remove items from pantry when 0 is typed as the amount to add', function(){
     var i;
-
     inventory.addNewFood("7 oranges");
     inventory.addNewFood("4 apples");
     inventory.addNewFood("3 oranges");
@@ -112,6 +111,15 @@ describe('Service: inventory', function () {
     expect(inventory.findFood("oranges")).toBe(0);
     expect(inventory.findFood("apples")).toBe(-1);
 
+  });
+  
+  it('should not remove any items if the item in the input is not in the list', function(){
+    var i;
+    inventory.addNewFood("7 oranges");
+    i = inventory.Inventory();
+    expect(i.length).toBe(1);
+    inventory.removeFood("grapefruits");
+    expect(i.length).toBe(1);
   });
 
 });
