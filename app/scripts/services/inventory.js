@@ -14,15 +14,19 @@ angular.module('pantryApp')
     var numFood = '';
 
     return{
+
       Inventory: function(){
         return inv;
       },
+
       enteredFood: function(){
         return food;
       },
+
       enteredAmount: function(){
         return numFood;
       },
+
       processAmount: function(entered){
         var i = 0;
         numFood = '';
@@ -81,11 +85,12 @@ angular.module('pantryApp')
               foodProto.name = foo;
               foodProto.servings = am;
               inv.push(foodProto);
-              this.finishProcess();
             }
           }
         }
+        this.finishProcess();
       },
+
       updateFood: function(a, f){
         if(Number(a) !== 0){
           var index = this.findFood(f);
@@ -103,15 +108,18 @@ angular.module('pantryApp')
           this.removeFood(f);
         }
       },
+
       removeFood: function(foo){
         var index = this.findFood(foo);
         inv.splice(index, 1);
         this.finishProcess();
       },
+
       finishProcess: function(){
         food = '';
         numFood = '';
       },
+
       clearPantry: function(){
         var i = inv.length;
         for(i; i > 0; i--){
@@ -119,6 +127,5 @@ angular.module('pantryApp')
         }
         this.finishProcess();
       }
-
     };
   });

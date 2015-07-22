@@ -22,9 +22,7 @@ describe('Directive: pantryOutput', function () {
     element = angular.element('<pantry-output></pantry-output>');
     scope.pantry = [{"name": "grapefruits", "servings":"8"}];
     element = $compile(element)(scope);
-    scope.$digest();
     element = element.find('span').text().replace(/^\s+|\s+$/g, '');
-    console.log(element);
     expect(element).toBe('grapefruits8');
 
   });
