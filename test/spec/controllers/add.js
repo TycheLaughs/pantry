@@ -41,7 +41,7 @@ describe('Controller: addCtrl', function () {
         });
     });
 
-  describe('Function: pressedKey', function(){
+  describe('Function: pressedKey(e)', function(){
     var e = {"which": 13};
     var f = {"which": 17};
     beforeEach(function() {

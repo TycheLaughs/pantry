@@ -67,7 +67,7 @@ describe('Function: handleUpdate', function() {
     });
   });
 
-  describe('Function: pressedKeyForUpdate', function() {
+  describe('Function: pressedKeyForUpdate(e)', function() {
     var e = {"which": 13};
     var f = {"which": 17};
     beforeEach(function () {
@@ -88,7 +88,7 @@ describe('Function: handleUpdate', function() {
     });
   });
 
-    describe('Function: pressedKeyForRemoval', function(){
+    describe('Function: pressedKeyForRemoval(e)', function(){
       var e ={"which" : 13};
       var f = {"which" : 17};
       beforeEach(function(){

@@ -23,7 +23,7 @@ describe('Controller: pantryCtrl', function () {
     scope.pantry = inventory.Inventory();
     expect(scope.pantry.length).toBe(0);
   });
-  describe('Function: clearInventory', function(){
+  describe('Function: clearInventory()', function(){
   beforeEach(function(){
     expect(inventory.Inventory().length).toBe(0);
     expect(inventory.enteredFood()).toBe('');
@@ -34,7 +34,7 @@ describe('Controller: pantryCtrl', function () {
   });
 
 
-      it('should have a function to clear the pantry', function(){
+      it('should clear the pantry', function(){
 
         inventory.addNewFood("8 grapefruits");
         inventory.addNewFood("7 apples");
