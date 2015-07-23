@@ -34,11 +34,12 @@ angular.module('pantryApp')
           for(i; i < entered.length && entered[i] !== ' '; i++){
             numFood+= entered[i];
           }
-          if(!Number(numFood) && numFood !=='0'){
+          if(!Number(numFood) &&  numFood !=='0' ){
+
             numFood = '';
-            return '';
           }
         }
+        return numFood;
       },
 
       processFood: function(entered){
@@ -71,10 +72,9 @@ angular.module('pantryApp')
           "name": "foodName",
           "servings": "0"
         };
-        this.processAmount(entered);
-        this.processFood(entered);
-        am = this.enteredAmount();
-        foo = this.enteredFood();
+        am = this.processAmount(entered);
+        foo = this.processFood(entered);
+
         if(am !== '' && foo !== ''){
           if(Number(am)|| am === '0') {
            var found = this.findFood(foo);
@@ -95,11 +95,9 @@ angular.module('pantryApp')
 
       updateFood: function(entry){
         var a, f;
-        this.processFood(entry);
-        this.processAmount(entry);
-        a = this.enteredAmount();
-        f = this.enteredFood();
-        if(Number(a) !== 0){
+        f = this.processFood(entry);
+        a = this.processAmount(entry);
+        if(Number(a) && a !== ''){
           var index = this.findFood(f);
           var amount = Number(inv[index].servings);
           amount += Number(a);
@@ -108,11 +106,15 @@ angular.module('pantryApp')
            this.finishProcess();
           }
           else {
-           this.removeFood(f);
+            if(a !== ''){
+              this.removeFood(f);
+            }
           }
         }
         else {
-          this.removeFood(f);
+          if(a !== ''){
+            this.removeFood(f);
+          }
         }
       },
 
