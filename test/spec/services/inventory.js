@@ -84,7 +84,15 @@ describe('Service: inventory', function () {
           i = inventory.Inventory();
           expect(i.length).toBe(1);
         });
+
+        it('should not add new items of a negative amount to the list', function(){
+          inventory.addNewFood("-8 oranges");
+          i = inventory.Inventory();
+          expect(i.length).toBe(0);
+        });
+
       });
+
       describe('Functions: addNewFood, updateFood', function() {
         it('should update food already in pantry based on entry', function () {
           inventory.addNewFood("7 oranges");

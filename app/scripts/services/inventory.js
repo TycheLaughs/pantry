@@ -82,9 +82,11 @@ angular.module('pantryApp')
               this.updateFood(entered);
             }
             else {
-              foodProto.name = foo;
-              foodProto.servings = am;
-              inv.push(foodProto);
+              if(am > 0){
+                foodProto.name = foo;
+                foodProto.servings = am;
+                inv.push(foodProto);
+              }
             }
           }
         }
