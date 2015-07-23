@@ -24,7 +24,7 @@ describe('Controller: addCtrl', function () {
 
   });
 
-  describe('Function: handleUpdate', function(){
+  describe('Function: handleEntry', function(){
     beforeEach(function () {
       expect(inventory.Inventory().length).toBe(0);
       expect(inventory.enteredFood()).toBe('');

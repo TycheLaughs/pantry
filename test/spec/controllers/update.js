@@ -27,26 +27,34 @@ describe('Controller: UpdateCtrl', function () {
     expect(scope.removeMe).toBe('');
 
   });
-describe('things that I guess need to be broken up into more describe blocks', function(){
-  beforeEach(function(){
+describe('Function: handleUpdate', function() {
+  beforeEach(function () {
     expect(inventory.Inventory().length).toBe(0);
     expect(inventory.enteredFood()).toBe('');
     expect(inventory.enteredAmount()).toBe('');
     expect(scope.removeMe).toBe('');
     expect(scope.updateMe).toBe('');
   });
-    it('should send input to the service to UPDATE existing food amounts', function(){
+  it('should send input to the service to UPDATE existing food amounts', function () {
 
-      scope.updateMe = "3 apples";
-      scope.handleUpdate();
-      scope.updateMe = "3 apples";
-      scope.handleUpdate();
-      expect(inventory.Inventory().length).toBe(1);
-      expect(inventory.Inventory()[0].name).toBe('apples');
-      expect(inventory.Inventory()[0].servings).toBe(6);
+    scope.updateMe = "3 apples";
+    scope.handleUpdate();
+    scope.updateMe = "3 apples";
+    scope.handleUpdate();
+    expect(inventory.Inventory().length).toBe(1);
+    expect(inventory.Inventory()[0].name).toBe('apples');
+    expect(inventory.Inventory()[0].servings).toBe(6);
 
+  });
+});
+  describe('Function: handleRemove', function(){
+    beforeEach(function(){
+      expect(inventory.Inventory().length).toBe(0);
+      expect(inventory.enteredFood()).toBe('');
+      expect(inventory.enteredAmount()).toBe('');
+      expect(scope.removeMe).toBe('');
+      expect(scope.updateMe).toBe('');
     });
-
     it('should send input to the service to REMOVE named food', function(){
 
       scope.updateMe = "3 apples";
@@ -58,6 +66,7 @@ describe('things that I guess need to be broken up into more describe blocks', f
       expect(inventory.Inventory().length).toBe(0);
     });
   });
+
   describe('Function: pressedKeyForUpdate', function() {
     var e = {"which": 13};
     var f = {"which": 17};
@@ -81,7 +90,7 @@ describe('things that I guess need to be broken up into more describe blocks', f
 
     describe('Function: pressedKeyForRemoval', function(){
       var e ={"which" : 13};
-     var f = {"which" : 17};
+      var f = {"which" : 17};
       beforeEach(function(){
 
         spyOn(scope, 'handleRemove').and.callFake(function() {
